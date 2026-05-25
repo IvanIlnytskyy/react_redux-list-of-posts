@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-
+import authorReducer from '../features/author/authorSlice';
 import usersReducer from '../features/users/usersSlice';
 import postsReducer from '../features/posts/postsSlice';
 import commentsReducer from '../features/comments/commentsSlice';
@@ -11,6 +11,7 @@ export const store = configureStore({
     posts: postsReducer,
     comments: commentsReducer,
     selectedPost: selectedPostReducer,
+    author: authorReducer,
   },
 });
 

@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
-import { User } from '../types/User';
-import { useAppSelector } from '../app/hooks';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { setAuthor } from '../features/author/authorSlice';
 
-type Props = {
-  value: User | null;
-  onChange: (user: User) => void;
-};
-
-export const UserSelector: React.FC<Props> = ({
-  value: selectedUser,
-  onChange,
-}) => {
+export const UserSelector: React.FC = () => {
   const [expanded, setExpanded] = useState(false);
   const users = useAppSelector(state => state.users);
+  const dispatch = useAppDispatch();
+  const selectedUser = useAppSelector(state => state.author);
 
   useEffect(() => {
     if (!expanded) {
@@ -63,7 +57,7 @@ export const UserSelector: React.FC<Props> = ({
               key={user.id}
               href={`#user-${user.id}`}
               onClick={() => {
-                onChange(user);
+                dispatch(setAuthor(user));
               }}
               className={classNames('dropdown-item', {
                 'is-active': user.id === selectedUser?.id,

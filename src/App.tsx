@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import { getUsers } from './api/users';
 import { setUsers } from './features/users/usersSlice';
-
 import {
   setPosts,
   setPostsError,
@@ -21,12 +20,11 @@ import { PostDetails } from './components/PostDetails';
 import { UserSelector } from './components/UserSelector';
 import { Loader } from './components/Loader';
 import { getUserPosts } from './api/posts';
-import { User } from './types/User';
 
 export const App: React.FC = () => {
   const posts = useAppSelector(state => state.posts.items);
   const dispatch = useAppDispatch();
-  const [author, setAuthor] = useState<User | null>(null);
+  const author = useAppSelector(state => state.author);
   const loaded = useAppSelector(state => state.posts.loaded);
 
   const hasError = useAppSelector(state => state.posts.hasError);
@@ -71,7 +69,7 @@ export const App: React.FC = () => {
           <div className="tile is-parent">
             <div className="tile is-child box is-success">
               <div className="block">
-                <UserSelector value={author} onChange={setAuthor} />
+                <UserSelector />
               </div>
 
               <div className="block" data-cy="MainContent">
